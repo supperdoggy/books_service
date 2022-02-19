@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+package bookspb;
+option go_package="book_proto/";
+
+message Book {
+  string id = 1;
+  string name = 2;
+  string author = 3;
+
+  int32 pages = 4;
+
+  uint64 creation_date = 5;
+  uint64 upload_time = 6;
+}
+
+message BookData {
+  string id = 1;
+  string book_id = 2;
+  bytes data = 3;
+}
+
+message Score {
+  string id = 1;
+  string book_id = 2;
+  string user_id = 3;
+  uint32 score = 4; // from 1 to 5
+}
+
+// CurrentPage is made for saving last page user read
+message CurrentPage {
+  string id = 1;
+  string book_id = 2;
+  string user_id = 3;
+  int32 book_page_number = 4;
+}
+
+// requests
+message UploadBookRequest {
+  // please note that you should not fill the id
+  Book book = 1;
+  BookData data = 2;
+  string hash = 3;
+}
+
+message UploadBookResponse {
+  bool ok = 1;
+  string book_id = 2;
+}
+
+service BooksService {
+  rpc UploadBook(UploadBookRequest) returns (UploadBookResponse) {};
+}
