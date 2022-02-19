@@ -9,11 +9,17 @@ import (
 var config appConfig
 
 type appConfig struct {
-	DBName string
-	CollectionName string
-	Port string
+	DBUrl                     string `json:"db_url"`
+	DBName                    string `json:"db_name"`
+	BooksCollectionName       string `json:"books_collection_name"`
+	ScoresCollectionName      string `json:"scores_collection_name"`
+	BooksDataCollectionName   string `json:"books_data_collection_name"`
+	CurrentPageCollectionName string `json:"current_page_collection_name"`
 
-	IsProd bool
+	Url  string `json:"url"`
+	Port string `json:"port"`
+
+	IsProd bool `json:"is_prod"`
 }
 
 func init() {
@@ -29,6 +35,15 @@ func init() {
 
 	if err := json.Unmarshal(data, &config); err != nil {
 		panic(err.Error())
+	}
+
+	if config.DBName == "" ||
+		config.BooksCollectionName == "" ||
+		config.BooksDataCollectionName == "" ||
+		config.ScoresCollectionName == "" ||
+		config.CurrentPageCollectionName == "" ||
+		config.Port == "" {
+		panic("fill all the config values!!!!")
 	}
 }
 

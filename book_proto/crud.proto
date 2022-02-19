@@ -10,8 +10,11 @@ message Book {
 
   int32 pages = 4;
 
-  uint64 creation_date = 5;
-  uint64 upload_time = 6;
+  // when was written
+  int64 creation_date = 5;
+  // when was uploaded to service
+  int64 upload_time = 6;
+  int64 update_time = 7;
 }
 
 message BookData {
@@ -37,10 +40,12 @@ message CurrentPage {
 
 // requests
 message UploadBookRequest {
-  // please note that you should not fill the id
-  Book book = 1;
-  BookData data = 2;
-  string hash = 3;
+  string name = 1;
+  string author = 2;
+  bytes data = 3;
+  string hash = 4;
+  // when was written
+  int64 creation_time = 5;
 }
 
 message UploadBookResponse {

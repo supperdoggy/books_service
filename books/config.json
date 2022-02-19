@@ -1,0 +1,11 @@
+{
+  "db_url": "",
+  "db_name": "books",
+  "books_collection_name": "books",
+  "scores_collection_name": "scores",
+  "books_data_collection_name": "books_data",
+  "current_page_collection_name": "current_page",
+  "is_prod": false,
+  "url": "0.0.0.0",
+  "port": "8080"
+}
