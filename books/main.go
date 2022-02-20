@@ -8,6 +8,7 @@ import (
 	service2 "github.com/supperdoggy/grpc_CRUD/books/internal/service"
 	"go.uber.org/zap"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/reflection"
 	"net"
 )
 
@@ -35,8 +36,12 @@ func main() {
 	grpcServer := grpc.NewServer()
 
 	book_proto.RegisterBooksServiceServer(grpcServer, service)
+	// Register reflection service on gRPC server.
+	if !config.IsProd {
+		reflection.Register(grpcServer)
+	}
 
-	logger.Info("serving the server", zap.Any("listener", listener.Addr()))
+	logger.Info("serving the server", zap.Any("listener", urlport))
 
 	if err := grpcServer.Serve(listener); err != nil {
 		logger.Fatal("error serving server", zap.Error(err))

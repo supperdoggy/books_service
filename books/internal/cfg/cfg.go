@@ -2,8 +2,8 @@ package cfg
 
 import (
 	"encoding/json"
+	"flag"
 	"io/ioutil"
-	"os"
 )
 
 var config appConfig
@@ -23,12 +23,13 @@ type appConfig struct {
 }
 
 func init() {
-	path := os.Getenv("config")
-	if path == "" {
+	path := flag.String("config", "", "for config path")
+	flag.Parse()
+	if path == nil || *path == "" {
 		panic("no config path specified")
 	}
 
-	data, err := ioutil.ReadFile(path)
+	data, err := ioutil.ReadFile(*path)
 	if err != nil {
 		panic(err.Error())
 	}
