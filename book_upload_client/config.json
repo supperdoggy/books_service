@@ -1,0 +1,6 @@
+{
+  "path_to_txt": "/Users/maks/go/src/github.com/supperdoggy/grpc_CRUD/book_upload_client/data/book example.txt",
+  "security_token": "i_am_a_secret_security_token",
+  "url": "0.0.0.0",
+  "port": "8080"
+}

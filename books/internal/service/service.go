@@ -3,6 +3,7 @@ package service
 import (
 	"context"
 	"github.com/supperdoggy/grpc_CRUD/book_proto"
+	"github.com/supperdoggy/grpc_CRUD/books/internal/cfg"
 	db2 "github.com/supperdoggy/grpc_CRUD/books/internal/db"
 	"github.com/supperdoggy/grpc_CRUD/books/internal/utils"
 	"go.uber.org/zap"
@@ -24,6 +25,12 @@ func NewService(l *zap.Logger, d db2.IDB) IService {
 }
 
 func (s *service) UploadBook(ctx context.Context, in *book_proto.UploadBookRequest) (*book_proto.UploadBookResponse, error) {
+	// check for token
+	if config := cfg.GetConfig(); config.SecurityToken != in.GetSecurityToken() {
+		return nil, status.Error(codes.PermissionDenied, "invalid security token")
+	}
+
+	// check for data loss
 	if !utils.CreateAndCompareSHA256(in.GetData(), in.GetHash()) {
 		return nil, status.Error(codes.DataLoss, "different hashes got")
 	}

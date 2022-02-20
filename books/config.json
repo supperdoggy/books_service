@@ -7,5 +7,6 @@
   "current_page_collection_name": "current_page",
   "is_prod": false,
   "url": "0.0.0.0",
-  "port": "8080"
+  "port": "8080",
+  "security_token": "i_am_a_secret_security_token"
 }

@@ -48,6 +48,9 @@ message UploadBookRequest {
   string hash = 4;
   // when was written
   int64 creation_time = 5;
+
+  // only for uploading new books
+  string security_token = 6;
 }
 
 message UploadBookResponse {
@@ -55,5 +58,6 @@ message UploadBookResponse {
 }
 
 service BooksService {
+  // checks for security token, uploads only if token is right
   rpc UploadBook(UploadBookRequest) returns (UploadBookResponse) {};
 }

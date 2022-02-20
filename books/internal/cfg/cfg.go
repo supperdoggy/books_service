@@ -16,6 +16,8 @@ type appConfig struct {
 	BooksDataCollectionName   string `json:"books_data_collection_name"`
 	CurrentPageCollectionName string `json:"current_page_collection_name"`
 
+	SecurityToken string `json:"security_token"`
+
 	Url  string `json:"url"`
 	Port string `json:"port"`
 
@@ -43,7 +45,8 @@ func init() {
 		config.BooksDataCollectionName == "" ||
 		config.ScoresCollectionName == "" ||
 		config.CurrentPageCollectionName == "" ||
-		config.Port == "" {
+		config.Port == "" ||
+		config.SecurityToken == "" {
 		panic("fill all the config values!!!!")
 	}
 }
