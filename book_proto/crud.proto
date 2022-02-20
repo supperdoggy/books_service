@@ -8,7 +8,7 @@ message Book {
   string name = 2;
   string author = 3;
 
-  int32 pages = 4;
+  int64 charCount = 4;
 
   // when was written
   int64 creation_date = 5;
@@ -21,6 +21,8 @@ message BookData {
   string id = 1;
   string book_id = 2;
   bytes data = 3;
+  int64 upload_time = 4;
+  int64 update_time = 5;
 }
 
 message Score {
@@ -50,7 +52,6 @@ message UploadBookRequest {
 
 message UploadBookResponse {
   bool ok = 1;
-  string book_id = 2;
 }
 
 service BooksService {
